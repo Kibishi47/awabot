@@ -1,9 +1,51 @@
 @import "tailwindcss";
 
+@font-face {
+    font-family: 'Satoshi';
+    src: url('./assets/fonts/satoshi/Satoshi-Light.otf') format('opentype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Satoshi';
+    src: url('./assets/fonts/satoshi/Satoshi-Regular.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Satoshi';
+    src: url('./assets/fonts/satoshi/Satoshi-Medium.otf') format('opentype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Satoshi';
+    src: url('./assets/fonts/satoshi/Satoshi-Bold.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Satoshi';
+    src: url('./assets/fonts/satoshi/Satoshi-Black.otf') format('opentype');
+    font-weight: 900;
+    font-style: normal;
+}
+
 @theme {
+    --font-sans: 'Satoshi', ui-sans-serif, system-ui, sans-serif;
     --color-accent-dark: #6D213C;
     --color-accent-medium: #FF335C;
     --color-accent-light: #F6EAEC;
     --color-neutral-noir: #252525;
     --background-image-gradient-primary: linear-gradient(82.6deg, #6D213C 1.56%, #FF335C 98.98%);
+}
+
+body {
+    font-family: 'Satoshi', sans-serif;
+    background-color: var(--color-accent-light);
+    margin: 0;
 }
