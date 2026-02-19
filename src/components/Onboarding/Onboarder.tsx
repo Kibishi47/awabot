@@ -19,6 +19,7 @@ import { RobotNameScreen } from './screens/RobotNameScreen';
 import { RobotCodeScreen } from './screens/RobotCodeScreen';
 import { RobotSafetyScreen } from './screens/RobotSafetyScreen';
 import { RobotSuccessScreen } from './screens/RobotSuccessScreen';
+import { ManagementContainer } from '../Management/ManagementContainer';
 
 export type Step =
     | 'intro'
@@ -39,7 +40,8 @@ export type Step =
     | 'robot-name'
     | 'robot-code'
     | 'robot-safety'
-    | 'robot-success';
+    | 'robot-success'
+    | 'management';
 
 export const Onboarder = () => {
     const [history, setHistory] = useState<Step[]>(['intro']);
@@ -89,7 +91,7 @@ export const Onboarder = () => {
                 onBack={goBack}
             />;
             case 'auth-login': return <LoginScreen
-                onNext={() => goTo('auth-success')}
+                onNext={() => goTo('management')}
                 onBack={goBack}
             />;
             case 'auth-success': return <AuthSuccessScreen
@@ -115,7 +117,7 @@ export const Onboarder = () => {
             />;
             case 'org-success': return <OrgSuccessScreen
                 onConnect={() => goTo('robot-name')}
-                onLater={() => console.log('Finish')}
+                onLater={() => goTo('management')}
                 onBack={goBack}
             />;
             case 'robot-name': return <RobotNameScreen
@@ -131,7 +133,10 @@ export const Onboarder = () => {
                 onBack={goBack}
             />;
             case 'robot-success': return <RobotSuccessScreen
-                onFinish={() => console.log('Finish')}
+                onFinish={() => goTo('management')}
+            />;
+            case 'management': return <ManagementContainer
+                onLogout={() => setHistory(['login-decision'])}
             />;
             default: return null;
         }
