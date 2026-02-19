@@ -1,42 +1,41 @@
-import { Box, Typography, Paper, IconButton, Avatar, Stack } from '@mui/material';
-import { ManagementLayout } from '../ManagementLayout';
-import { Button } from '../../Button';
-import { Badge } from '../../Badge';
+import { Box, Typography, Paper, IconButton, Stack, Avatar } from '@mui/material';
+import { ManagementLayout } from '../../components/Management/ManagementLayout';
+import { Button } from '../../components/Button';
+import { BackButton } from '../../components/BackButton';
+import { Badge } from '../../components/Badge';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import FilterListIcon from '@mui/icons-material/FilterList';
+import BatteryChargingFullIcon from '@mui/icons-material/BatteryChargingFull';
 
-interface User {
+interface Robot {
     id: string;
     name: string;
-    email: string;
-    role: string;
-    robotsCount: number;
-    initial: string;
+    model: string;
+    status: 'En ligne' | 'Hors ligne' | 'En session';
+    battery: number;
 }
 
-interface UserListScreenProps {
-    users: User[];
-    onAddUser: () => void;
-    onViewUser: (userId: string) => void;
+interface RobotListScreenProps {
+    robots: Robot[];
+    onAddRobot: () => void;
+    onViewRobot: (robotId: string) => void;
+    onBack: () => void;
 }
 
-export const UserListScreen = ({
-    users,
-    onAddUser,
-    onViewUser
-}: UserListScreenProps) => {
+export const RobotListScreen = ({ robots, onAddRobot, onViewRobot, onBack }: RobotListScreenProps) => {
     return (
         <ManagementLayout>
             <Box sx={{ mb: 4 }}>
+                <BackButton onClick={onBack} />
                 <Typography variant="h1" sx={{
                     fontSize: '32px',
                     fontWeight: 700,
                     color: 'neutral.noir',
                     mb: 1,
+                    mt: 2,
                     fontFamily: 'Satoshi'
                 }}>
-                    Utilisateurs
+                    Mes Robots
                 </Typography>
                 <Typography sx={{
                     fontSize: '16px',
@@ -45,18 +44,18 @@ export const UserListScreen = ({
                     mb: 4,
                     fontFamily: 'Satoshi'
                 }}>
-                    Voici la liste des utilisateurs qui font partie de votre organisation Wedding.
+                    Gérez votre flotte de robots et suivez leur état en temps réel.
                 </Typography>
 
-                <Button onClick={onAddUser} sx={{ mb: 4 }}>
-                    Ajouter un utilisateur
+                <Button onClick={onAddRobot} sx={{ mb: 4 }}>
+                    Ajouter un robot
                 </Button>
             </Box>
 
             <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', px: 2, mb: 2 }}>
                     <Typography sx={{ fontWeight: 500, color: 'neutral.noir' }}>
-                        {users.length} utilisateurs
+                        {robots.length} robots
                     </Typography>
                     <IconButton size="small">
                         <FilterListIcon sx={{ color: 'accent.dark' }} />
@@ -64,32 +63,20 @@ export const UserListScreen = ({
                 </Box>
 
                 <Stack spacing={2} sx={{ mb: 4 }}>
-                    {users.map((user) => (
-                        <UserListItem
-                            key={user.id}
-                            user={user}
-                            onClick={() => onViewUser(user.id)}
+                    {robots.map((robot) => (
+                        <RobotListItem
+                            key={robot.id}
+                            robot={robot}
+                            onClick={() => onViewRobot(robot.id)}
                         />
                     ))}
                 </Stack>
-
-                <Box sx={{ mt: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 2, py: 2 }}>
-                    <IconButton size="small" disabled>
-                        <ChevronLeftIcon />
-                    </IconButton>
-                    <Typography sx={{ fontSize: '14px', color: 'neutral.noir' }}>
-                        Page 1 sur 1
-                    </Typography>
-                    <IconButton size="small" disabled>
-                        <ChevronRightIcon />
-                    </IconButton>
-                </Box>
             </Box>
         </ManagementLayout>
     );
 };
 
-const UserListItem = ({ user, onClick }: { user: User; onClick: () => void }) => (
+const RobotListItem = ({ robot, onClick }: { robot: Robot; onClick: () => void }) => (
     <Paper
         elevation={0}
         onClick={onClick}
@@ -100,6 +87,7 @@ const UserListItem = ({ user, onClick }: { user: User; onClick: () => void }) =>
             display: 'flex',
             alignItems: 'center',
             cursor: 'pointer',
+            border: '1px solid rgba(0,0,0,0.05)',
             transition: 'transform 0.1s',
             '&:hover': {
                 transform: 'translateY(-2px)'
@@ -111,25 +99,24 @@ const UserListItem = ({ user, onClick }: { user: User; onClick: () => void }) =>
             height: 48,
             bgcolor: 'var(--color-accent-light)',
             color: 'accent.dark',
-            fontWeight: 700,
-            fontSize: '20px',
             borderRadius: '12px',
             mr: 2
         }}>
-            {user.initial}
+            <Box component="img" src="/robot-icon.png" sx={{ width: 24, height: 24, filter: 'invert(16%) sepia(50%) saturate(1633%) hue-rotate(313deg) brightness(91%) contrast(92%)' }} />
         </Avatar>
         <Box sx={{ flex: 1 }}>
             <Typography sx={{ fontWeight: 700, fontSize: '16px', color: 'neutral.noir' }}>
-                {user.name}
+                {robot.name}
             </Typography>
             <Typography sx={{ fontSize: '14px', color: 'neutral.noir', opacity: 0.6, mb: 1 }}>
-                {user.email}
+                {robot.model}
             </Typography>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <Badge label={user.role} />
-                <Typography sx={{ fontSize: '12px', color: 'neutral.noir', opacity: 0.8 }}>
-                    {user.robotsCount} robot{user.robotsCount > 1 ? 's' : ''} attribué{user.robotsCount > 1 ? 's' : ''}
-                </Typography>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+                <Badge label={robot.status} />
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, opacity: 0.6 }}>
+                    <BatteryChargingFullIcon sx={{ fontSize: 16 }} />
+                    <Typography sx={{ fontSize: '12px', fontWeight: 500 }}>{robot.battery}%</Typography>
+                </Box>
             </Box>
         </Box>
         <ChevronRightIcon sx={{ color: 'accent.dark' }} />

@@ -1,11 +1,11 @@
 import { Typography, Box, MenuItem, Stack } from '@mui/material';
-import { Button } from '../../Button';
-import { TextField } from '../../TextField';
-import { ScreenLayout } from '../ScreenLayout';
+import { Button } from '../../components/Button';
+import { TextField } from '../../components/TextField';
+import { ScreenLayout } from '../../components/Onboarding/ScreenLayout';
 
 interface RobotWifiSetupScreenProps {
     onNext: () => void;
-    onBack: () => void;
+    onBack?: () => void;
 }
 
 export const RobotWifiSetupScreen = ({ onNext, onBack }: RobotWifiSetupScreenProps) => {
@@ -15,7 +15,7 @@ export const RobotWifiSetupScreen = ({ onNext, onBack }: RobotWifiSetupScreenPro
                 <Typography
                     variant="caption"
                     sx={{
-                        color: 'accent-medium',
+                        color: 'accent.medium',
                         fontWeight: 700,
                         textTransform: 'uppercase',
                         letterSpacing: '0.1em',
@@ -25,14 +25,14 @@ export const RobotWifiSetupScreen = ({ onNext, onBack }: RobotWifiSetupScreenPro
                 >
                     étape 2
                 </Typography>
-                <Typography variant="h4" sx={{ fontWeight: 700, mb: 1, color: 'neutral-noir' }}>
+                <Typography variant="h4" sx={{ fontWeight: 700, mb: 1, color: 'neutral.noir' }}>
                     Connexion au réseau Wifi
                 </Typography>
             </Box>
 
             <Stack spacing={3} sx={{ mb: 6 }}>
                 <Box>
-                    <Typography variant="body1" sx={{ mb: 1, fontWeight: 500, color: 'neutral-noir' }}>
+                    <Typography variant="body1" sx={{ mb: 1, fontWeight: 500, color: 'neutral.noir' }}>
                         Choix du réseau
                     </Typography>
                     <TextField
@@ -47,7 +47,7 @@ export const RobotWifiSetupScreen = ({ onNext, onBack }: RobotWifiSetupScreenPro
                 </Box>
 
                 <Box>
-                    <Typography variant="body1" sx={{ mb: 1, fontWeight: 500, color: 'neutral-noir' }}>
+                    <Typography variant="body1" sx={{ mb: 1, fontWeight: 500, color: 'neutral.noir' }}>
                         Mot de passe Wifi
                     </Typography>
                     <TextField

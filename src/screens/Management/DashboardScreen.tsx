@@ -1,6 +1,6 @@
-import { Box, Typography, Paper } from '@mui/material';
-import { ManagementLayout } from '../ManagementLayout';
-import { Button } from '../../Button';
+import { Box, Typography, Paper, ButtonBase } from '@mui/material';
+import { ManagementLayout } from '../../components/Management/ManagementLayout';
+import { Button } from '../../components/Button';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import PeopleIcon from '@mui/icons-material/People';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
@@ -55,7 +55,7 @@ export const DashboardScreen = ({
                     onClick={onManageUsers}
                 />
                 <StatCard
-                    title="6 robots"
+                    title="3 robots"
                     subtitle="Gérer les robots"
                     icon={<SmartToyIcon sx={{ color: 'accent.dark' }} />}
                     onClick={onManageRobots}
@@ -86,44 +86,53 @@ interface StatCardProps {
     icon: React.ReactNode;
     onClick: () => void;
 }
-
 const StatCard = ({ title, subtitle, icon, onClick }: StatCardProps) => (
-    <Paper
-        elevation={0}
+    <ButtonBase
         onClick={onClick}
         sx={{
-            p: 2,
+            width: '100%',
+            display: 'block',
+            textAlign: 'left',
             borderRadius: '12px',
-            bgcolor: 'white',
-            display: 'flex',
-            alignItems: 'center',
-            cursor: 'pointer',
-            transition: 'transform 0.2s',
-            '&:hover': {
-                transform: 'scale(1.02)'
-            }
+            overflow: 'hidden'
         }}
     >
-        <Box sx={{
-            width: 48,
-            height: 48,
-            borderRadius: '10px',
-            bgcolor: 'var(--color-accent-light)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            mr: 2
-        }}>
-            {icon}
-        </Box>
-        <Box sx={{ flex: 1 }}>
-            <Typography sx={{ fontWeight: 700, fontSize: '18px', color: 'neutral.noir' }}>
-                {title}
-            </Typography>
-            <Typography sx={{ fontSize: '14px', color: 'accent.dark', opacity: 0.8 }}>
-                {subtitle}
-            </Typography>
-        </Box>
-        <ChevronRightIcon sx={{ color: 'accent.dark' }} />
-    </Paper>
+        <Paper
+            elevation={0}
+            sx={{
+                p: 2,
+                borderRadius: '12px',
+                bgcolor: 'white',
+                display: 'flex',
+                alignItems: 'center',
+                transition: 'transform 0.2s',
+                border: '1px solid rgba(0,0,0,0.05)',
+                '&:hover': {
+                    bgcolor: 'rgba(0,0,0,0.02)'
+                }
+            }}
+        >
+            <Box sx={{
+                width: 48,
+                height: 48,
+                borderRadius: '10px',
+                bgcolor: 'var(--color-accent-light)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                mr: 2
+            }}>
+                {icon}
+            </Box>
+            <Box sx={{ flex: 1 }}>
+                <Typography sx={{ fontWeight: 700, fontSize: '18px', color: 'neutral.noir' }}>
+                    {title}
+                </Typography>
+                <Typography sx={{ fontSize: '14px', color: 'accent.dark', opacity: 0.8 }}>
+                    {subtitle}
+                </Typography>
+            </Box>
+            <ChevronRightIcon sx={{ color: 'accent.dark' }} />
+        </Paper>
+    </ButtonBase>
 );

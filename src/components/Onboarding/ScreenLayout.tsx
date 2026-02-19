@@ -6,9 +6,10 @@ interface ScreenLayoutProps {
     children: React.ReactNode;
     showLogo?: boolean;
     onBack?: () => void;
+    hideBack?: boolean;
 }
 
-export const ScreenLayout = ({ children, showLogo = true, onBack }: ScreenLayoutProps) => {
+export const ScreenLayout = ({ children, showLogo = true, onBack, hideBack = false }: ScreenLayoutProps) => {
     return (
         <Box sx={{ bgcolor: 'var(--color-accent-light)', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
             <Container maxWidth="sm" sx={{ py: 6, flex: 1, display: 'flex', flexDirection: 'column' }}>
@@ -18,7 +19,7 @@ export const ScreenLayout = ({ children, showLogo = true, onBack }: ScreenLayout
                     </Box>
                 )}
 
-                {onBack && (
+                {!hideBack && onBack && (
                     <Box sx={{ mb: 4 }}>
                         <BackButton onClick={onBack} />
                     </Box>
