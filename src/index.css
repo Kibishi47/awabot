@@ -1,1 +1,9 @@
 @import "tailwindcss";
+
+@theme {
+    --color-accent-dark: #6D213C;
+    --color-accent-medium: #FF335C;
+    --color-accent-light: #F6EAEC;
+    --color-neutral-noir: #252525;
+    --background-image-gradient-primary: linear-gradient(82.6deg, #6D213C 1.56%, #FF335C 98.98%);
+}
