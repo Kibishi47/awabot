@@ -94,19 +94,6 @@ export const SessionFormScreen = ({ onSave, onBack, robots, users }: SessionForm
                         InputLabelProps={{ shrink: true }}
                     />
                 </Stack>
-
-                <Stack direction="row" spacing={2}>
-                    <TextField
-                        label="Latitude"
-                        placeholder="45.7640"
-                        fullWidth
-                    />
-                    <TextField
-                        label="Longitude"
-                        placeholder="4.8357"
-                        fullWidth
-                    />
-                </Stack>
             </Stack>
 
             <Button designVariant="gradient" fullWidth onClick={onSave} sx={{ mb: 2 }}>

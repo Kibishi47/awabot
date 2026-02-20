@@ -14,7 +14,9 @@ interface User {
     role: string;
     robotsCount: number;
     initial: string;
+    avatarColor?: string;
 }
+
 
 interface UserListScreenProps {
     users: User[];
@@ -54,9 +56,10 @@ export const UserListScreen = ({
                     Voici la liste des utilisateurs qui font partie de votre organisation Wedding.
                 </Typography>
 
-                <Button onClick={onAddUser} sx={{ mb: 4 }}>
+                <Button onClick={onAddUser} fullWidth sx={{ mb: 4 }}>
                     Ajouter un utilisateur
                 </Button>
+
             </Box>
 
             <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
@@ -115,13 +118,14 @@ const UserListItem = ({ user, onClick }: { user: User; onClick: () => void }) =>
         <Avatar sx={{
             width: 48,
             height: 48,
-            bgcolor: 'var(--color-accent-light)',
-            color: 'accent.dark',
+            bgcolor: user.avatarColor || 'var(--color-accent-light)',
+            color: 'white',
             fontWeight: 700,
             fontSize: '20px',
             borderRadius: '12px',
             mr: 2
         }}>
+
             {user.initial}
         </Avatar>
         <Box sx={{ flex: 1 }}>

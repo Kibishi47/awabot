@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import { Box } from '@mui/material';
-import { ScreenLayout } from '../../components/Onboarding/ScreenLayout';
-import { RobotStep1Screen } from './RobotStep1Screen';
-import { RobotWifiSetupScreen } from './RobotWifiSetupScreen';
 import { RobotSuccessScreen } from './RobotSuccessScreen';
-import { Typography } from '@mui/material';
-import { Button } from '../../components/Button';
+import { RobotStep1Screen } from './RobotStep1Screen';
+import { RobotConnectAPScreen } from './RobotConnectAPScreen';
+import { RobotWifiSetupScreen } from './RobotWifiSetupScreen';
+
 
 // Re-using but simplifying the steps
 export type OnboardingStep =
@@ -16,11 +15,14 @@ export type OnboardingStep =
 
 interface OnboardingContainerProps {
     onFinish: () => void;
+    onInvite?: () => void;
     onBack?: () => void;
     isManagement?: boolean;
 }
 
-export const OnboardingContainer = ({ onFinish, onBack, isManagement = false }: OnboardingContainerProps) => {
+
+export const OnboardingContainer = ({ onFinish, onInvite, onBack, isManagement = false }: OnboardingContainerProps) => {
+
     const [history, setHistory] = useState<OnboardingStep[]>(['power']);
 
     const currentStep = history[history.length - 1];
@@ -43,29 +45,11 @@ export const OnboardingContainer = ({ onFinish, onBack, isManagement = false }: 
                 />;
 
             case 'connect-ap':
-                // For Step 2, we can reuse the first half of WiFi setup or create a specialized one.
-                // Let's use a simplified version of RobotWifiSetupScreen logic
-                return (
-                    <ScreenLayout onBack={goBack}>
-                        <Box sx={{ mb: 4 }}>
-                            <Typography variant="h1" sx={{ fontSize: '32px', fontWeight: 700, color: 'neutral.noir', mb: 2 }}>
-                                Étape 2 : Connexion au robot
-                            </Typography>
-                            <Typography sx={{ fontSize: '18px', color: 'neutral.noir', opacity: 0.8 }}>
-                                Veuillez vous connecter au réseau WiFi émis par le robot (ex: Beam-XXXX) depuis les réglages de votre appareil.
-                            </Typography>
-                        </Box>
-                        {/* Placeholder for scanning/status */}
-                        <Box sx={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                            <Box sx={{ p: 4, bgcolor: 'white', borderRadius: '20px', textAlign: 'center', width: '100%' }}>
-                                <Typography sx={{ fontWeight: 700, color: 'accent.dark' }}>Recherche du robot...</Typography>
-                            </Box>
-                        </Box>
-                        <Button fullWidth onClick={() => goTo('config-wifi')} sx={{ mt: 4 }}>
-                            Je suis connecté au robot
-                        </Button>
-                    </ScreenLayout>
-                );
+                return <RobotConnectAPScreen
+                    onNext={() => goTo('config-wifi')}
+                    onBack={goBack}
+                />;
+
 
             case 'config-wifi':
                 return <RobotWifiSetupScreen
@@ -76,7 +60,9 @@ export const OnboardingContainer = ({ onFinish, onBack, isManagement = false }: 
             case 'success':
                 return <RobotSuccessScreen
                     onFinish={onFinish}
+                    onInvite={onInvite || onFinish}
                 />;
+
 
             default: return null;
         }

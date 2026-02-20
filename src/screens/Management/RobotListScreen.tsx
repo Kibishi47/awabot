@@ -47,9 +47,10 @@ export const RobotListScreen = ({ robots, onAddRobot, onViewRobot, onBack }: Rob
                     Gérez votre flotte de robots et suivez leur état en temps réel.
                 </Typography>
 
-                <Button onClick={onAddRobot} sx={{ mb: 4 }}>
+                <Button onClick={onAddRobot} fullWidth sx={{ mb: 4 }}>
                     Ajouter un robot
                 </Button>
+
             </Box>
 
             <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>

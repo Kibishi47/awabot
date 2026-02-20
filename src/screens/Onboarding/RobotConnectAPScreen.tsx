@@ -3,27 +3,24 @@ import { StepLabel } from '../../components/Onboarding/StepLabel';
 import { Button } from '../../components/Button';
 import { ScreenLayout } from '../../components/Onboarding/ScreenLayout';
 
-interface RobotStep1ScreenProps {
+interface RobotConnectAPScreenProps {
     onNext: () => void;
     onBack?: () => void;
 }
 
-export const RobotStep1Screen = ({ onNext, onBack }: RobotStep1ScreenProps) => {
+export const RobotConnectAPScreen = ({ onNext, onBack }: RobotConnectAPScreenProps) => {
     return (
         <ScreenLayout onBack={onBack}>
             <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
                 <Box sx={{ flex: 1 }}>
                     <Box sx={{ mb: 4 }}>
-                        <StepLabel step={1} />
+                        <StepLabel step={2} />
                         <Typography variant="h4" sx={{ fontWeight: 700, mb: 1, color: 'neutral.noir', fontSize: '24px' }}>
-                            Branchez le socle du robot sur une prise terre puis allumez le robot en le positionnant sur sa base.
+                            Connexion au réseau Wifi du robot
                         </Typography>
                     </Box>
 
                     <Box sx={{
-                        height: '179px',
-                        bgcolor: 'var(--color-accent-light)',
-                        borderRadius: '20px',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -31,11 +28,11 @@ export const RobotStep1Screen = ({ onNext, onBack }: RobotStep1ScreenProps) => {
                     }}>
                         <Box
                             component="img"
-                            src="/robot.png"
-                            alt="Robot on charging base"
+                            src="/wifi-settings.png"
+                            alt="Wifi Settings Instructions"
                             sx={{
                                 maxWidth: '100%',
-                                maxHeight: '100%',
+                                maxHeight: '300px',
                                 objectFit: 'contain'
                             }}
                         />
@@ -43,7 +40,7 @@ export const RobotStep1Screen = ({ onNext, onBack }: RobotStep1ScreenProps) => {
                 </Box>
 
                 <Button designVariant="gradient" onClick={onNext} fullWidth sx={{ py: 2, mt: 'auto' }}>
-                    Suivant
+                    Je suis connecté au robot
                 </Button>
             </Box>
         </ScreenLayout>

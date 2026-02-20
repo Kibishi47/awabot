@@ -12,6 +12,8 @@ import type { Session } from './SessionListScreen';
 import { SessionDetailScreen } from './SessionDetailScreen';
 import { SessionFormScreen } from './SessionFormScreen';
 
+
+
 export type ManagementView =
     | 'dashboard'
     | 'users'
@@ -26,13 +28,15 @@ export type ManagementView =
 
 interface ManagementContainerProps {
     onLogout: () => void;
+    initialView?: ManagementView;
 }
 
+
 const DUMMY_USERS = [
-    { id: '1', name: 'Ylona Angour', email: 'ylona.angour@gmail.com', role: 'Administrateur', robotsCount: 2, initial: 'Y' },
-    { id: '2', name: 'Emmanuel Moulin', email: 'emmanuel.moulin@gmail.com', role: 'Responsable', robotsCount: 1, initial: 'E' },
-    { id: '3', name: 'Mathieu Chavanel', email: 'mathieu.chavanel@gmail.com', role: 'Utilisateur', robotsCount: 2, initial: 'M' },
-    { id: '4', name: 'Thomas Dupont', email: 'thomas.dupont@gmail.com', role: 'Responsable', robotsCount: 1, initial: 'T' },
+    { id: '1', name: 'Ylona Angour', email: 'ylona.angour@gmail.com', role: 'Administrateur', robotsCount: 2, initial: 'Y', avatarColor: '#FF335C' },
+    { id: '2', name: 'Emmanuel Moulin', email: 'emmanuel.moulin@gmail.com', role: 'Responsable', robotsCount: 1, initial: 'E', avatarColor: '#FF335C' },
+    { id: '3', name: 'Mathieu Chavanel', email: 'mathieu.chavanel@gmail.com', role: 'Utilisateur', robotsCount: 2, initial: 'M', avatarColor: '#FF335C' },
+    { id: '4', name: 'Thomas Dupont', email: 'thomas.dupont@gmail.com', role: 'Responsable', robotsCount: 1, initial: 'T', avatarColor: '#FF335C' },
 ];
 
 const DUMMY_ROBOTS = [
@@ -66,11 +70,15 @@ const DUMMY_SESSIONS: Session[] = [
     },
 ];
 
-export const ManagementContainer = ({ onLogout }: ManagementContainerProps) => {
-    const [view, setView] = useState<ManagementView>('dashboard');
+export const ManagementContainer = ({ initialView = 'dashboard' }: ManagementContainerProps) => {
+
+    const [view, setView] = useState<ManagementView>(initialView);
     const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
     const [selectedRobotId, setSelectedRobotId] = useState<string | null>(null);
     const [selectedSessionId, setSelectedSessionId] = useState<string | null>(null);
+    const [isFromOnboarding, setIsFromOnboarding] = useState(initialView === 'session-form');
+
+
 
     const selectedUser = DUMMY_USERS.find(u => u.id === selectedUserId) || DUMMY_USERS[0];
     const selectedRobot = DUMMY_ROBOTS.find(r => r.id === selectedRobotId) || DUMMY_ROBOTS[0];
@@ -100,9 +108,16 @@ export const ManagementContainer = ({ onLogout }: ManagementContainerProps) => {
                         orgName="Wedding"
                         onManageUsers={() => setView('users')}
                         onManageRobots={() => setView('robots')}
-                        onManageSessions={() => setView('sessions')}
-                        onLogout={onLogout}
+                        onManageSessions={() => {
+                            setIsFromOnboarding(false);
+                            setView('sessions');
+                        }}
+                        onCreateSession={() => {
+                            setIsFromOnboarding(true);
+                            setView('session-form');
+                        }}
                     />
+
                 );
             case 'users':
                 return (
@@ -148,10 +163,18 @@ export const ManagementContainer = ({ onLogout }: ManagementContainerProps) => {
             case 'add-robot':
                 return (
                     <OnboardingContainer
-                        onFinish={() => setView('robots')}
+                        onFinish={() => {
+                            setIsFromOnboarding(false);
+                            setView('robots');
+                        }}
+                        onInvite={() => {
+                            setIsFromOnboarding(true);
+                            setView('session-form');
+                        }}
                         onBack={() => setView('robots')}
                         isManagement={true}
                     />
+
                 );
             case 'sessions':
                 return (
@@ -173,11 +196,12 @@ export const ManagementContainer = ({ onLogout }: ManagementContainerProps) => {
             case 'session-form':
                 return (
                     <SessionFormScreen
-                        onSave={() => setView('sessions')}
-                        onBack={() => setView('sessions')}
+                        onSave={() => setView(isFromOnboarding ? 'dashboard' : 'sessions')}
+                        onBack={() => setView(isFromOnboarding ? 'dashboard' : 'sessions')}
                         robots={DUMMY_ROBOTS}
                         users={DUMMY_USERS}
                     />
+
                 );
             default: return null;
         }

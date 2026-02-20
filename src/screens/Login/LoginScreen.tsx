@@ -10,7 +10,7 @@ interface LoginScreenProps {
 export const LoginScreen = ({ onLogin }: LoginScreenProps) => {
     return (
         <ScreenLayout hideBack>
-            <Box sx={{ mb: 4, textAlign: 'center' }}>
+            <Box sx={{ mb: 4 }}>
                 <Typography variant="h1" sx={{
                     fontSize: '32px',
                     fontWeight: 700,
@@ -18,15 +18,7 @@ export const LoginScreen = ({ onLogin }: LoginScreenProps) => {
                     mb: 1,
                     fontFamily: 'Satoshi'
                 }}>
-                    Connexion
-                </Typography>
-                <Typography sx={{
-                    fontSize: '16px',
-                    color: 'neutral.noir',
-                    opacity: 0.8,
-                    fontFamily: 'Satoshi'
-                }}>
-                    Veuillez renseigner vos identifiants pour accéder à votre espace.
+                    Connectez-vous à votre compte Awabot
                 </Typography>
             </Box>
 
@@ -47,7 +39,7 @@ export const LoginScreen = ({ onLogin }: LoginScreenProps) => {
             </Stack>
 
             <Button fullWidth onClick={onLogin} sx={{ mb: 3 }}>
-                Se connecter
+                Je me connecte
             </Button>
 
             <Box sx={{ textAlign: 'center' }}>

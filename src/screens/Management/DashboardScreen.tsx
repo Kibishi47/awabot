@@ -12,22 +12,23 @@ interface DashboardScreenProps {
     onManageUsers: () => void;
     onManageRobots: () => void;
     onManageSessions: () => void;
-    onLogout: () => void;
+    onCreateSession: () => void;
 }
+
 
 export const DashboardScreen = ({
     userName,
-    orgName,
     onManageUsers,
     onManageRobots,
     onManageSessions,
-    onLogout
+    onCreateSession
 }: DashboardScreenProps) => {
+
     return (
         <ManagementLayout>
             <Box sx={{ mb: 6 }}>
                 <Typography variant="h1" sx={{
-                    fontSize: '32px',
+                    fontSize: '24px',
                     fontWeight: 700,
                     color: 'neutral.noir',
                     lineHeight: 1.3,
@@ -35,15 +36,6 @@ export const DashboardScreen = ({
                     fontFamily: 'Satoshi'
                 }}>
                     Bienvenue sur votre tableau de bord {userName} !
-                </Typography>
-                <Typography sx={{
-                    fontSize: '18px',
-                    color: 'neutral.noir',
-                    opacity: 0.8,
-                    lineHeight: 1.5,
-                    fontFamily: 'Satoshi'
-                }}>
-                    Voici la liste des utilisateurs qui font partie de votre organisation {orgName}.
                 </Typography>
             </Box>
 
@@ -61,7 +53,7 @@ export const DashboardScreen = ({
                     onClick={onManageRobots}
                 />
                 <StatCard
-                    title="1 session"
+                    title="2 sessions"
                     subtitle="Gérer les sessions"
                     icon={<EventNoteIcon sx={{ color: 'accent.dark' }} />}
                     onClick={onManageSessions}
@@ -69,11 +61,12 @@ export const DashboardScreen = ({
             </Box>
 
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 'auto' }}>
-                <Button onClick={onLogout}>
-                    Déconnexion
+                <Button designVariant="gradient" onClick={onCreateSession} fullWidth sx={{ py: 2 }}>
+                    Créer une nouvelle session
                 </Button>
+
                 <Button designVariant="secondary">
-                    Gérer mon compte
+                    Voir les paramètres de mon organisation
                 </Button>
             </Box>
         </ManagementLayout>

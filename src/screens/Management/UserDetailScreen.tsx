@@ -14,7 +14,9 @@ interface UserDetailScreenProps {
         role: string;
         initial: string;
         robotsCount: number;
+        avatarColor?: string;
     };
+
     onDelete: () => void;
     onBack: () => void;
 }
@@ -30,14 +32,15 @@ export const UserDetailScreen = ({ user, onDelete, onBack }: UserDetailScreenPro
                 <Avatar sx={{
                     width: 104,
                     height: 104,
-                    bgcolor: 'white',
-                    color: 'accent.dark',
+                    bgcolor: user.avatarColor || 'white',
+                    color: user.avatarColor ? 'white' : 'accent.dark',
                     fontWeight: 700,
                     fontSize: '40px',
                     borderRadius: '24px',
                     boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
                     mb: 3
                 }}>
+
                     {user.initial}
                 </Avatar>
 

@@ -25,7 +25,8 @@ export const ScreenLayout = ({ children, showLogo = true, onBack, hideBack = fal
                     </Box>
                 )}
 
-                <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+
                     {children}
                 </Box>
             </Container>

@@ -56,9 +56,10 @@ export const SessionListScreen = ({ sessions, onAddSession, onViewSession, onBac
                     Consultez et gérez les sessions d'utilisation des robots.
                 </Typography>
 
-                <Button onClick={onAddSession} sx={{ mb: 4 }}>
+                <Button onClick={onAddSession} fullWidth sx={{ mb: 4 }}>
                     Ouvrir une session
                 </Button>
+
             </Box>
 
             <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
